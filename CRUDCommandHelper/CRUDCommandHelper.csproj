@@ -12,16 +12,16 @@
 
 	<ItemGroup>
 		<Reference Include="ModelHelper">
-			<HintPath>..\..\ModelHelper\ModelHelper\bin\Release\net6.0\ModelHelper.dll</HintPath>
+			<HintPath>..\..\build\Build\model-helper\ModelHelper\ModelHelper.dll</HintPath>
 		</Reference>
 		<Reference Include="EFCoreHelper">
-			<HintPath>..\..\EFCoreHelper\EFCoreHelper\bin\Release\net6.0\EFCoreHelper.dll</HintPath>
+			<HintPath>..\..\build\Build\efcore-helper\EFCoreHelper\EFCoreHelper.dll</HintPath>
 		</Reference>
 		<Reference Include="CLIHelper">
-			<HintPath>..\..\CLIHelper\CLIHelper\bin\Release\net6.0\CLIHelper.dll</HintPath>
+			<HintPath>..\..\build\Build\cli-helper\CLIHelper\CLIHelper.dll</HintPath>
 		</Reference>
 		<Reference Include="DataToTable">
-			<HintPath>..\..\DataToTable\DataToTable\bin\Release\net6.0\DataToTable.dll</HintPath>
+			<HintPath>..\..\build\Build\datatotable\DataToTable\DataToTable.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 </Project>
