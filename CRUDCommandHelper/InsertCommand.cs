@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CLIHelper;
 using EFCoreHelper;
+using Serilog;
 
 namespace CRUDCommandHelper;
 
@@ -10,20 +10,20 @@ public abstract class InsertCommand<TUnitOfWork, TEntity, TArgumentModel>
         where TUnitOfWork : IUnitOfWork
 {
     protected readonly TUnitOfWork UnitOfWork;
-    private readonly IOutput output;
+    private readonly ILogger log;
     private readonly IMapper mapper;
 
     public InsertCommand(
         TUnitOfWork unitOfWork
-        , IOutput output
+        , ILogger log
         , IMapper mapper)
     {
         UnitOfWork = unitOfWork;
-        this.output = output;
+        this.log = log;
         this.mapper = mapper;
 
         ArgumentNullException.ThrowIfNull(UnitOfWork);
-        ArgumentNullException.ThrowIfNull(this.output);
+        ArgumentNullException.ThrowIfNull(this.log);
         ArgumentNullException.ThrowIfNull(this.mapper);
     }
 
@@ -35,13 +35,9 @@ public abstract class InsertCommand<TUnitOfWork, TEntity, TArgumentModel>
             InsertEntity(model);
             UnitOfWork.Save();
         }
-        catch (ArgumentException ex)
-        {
-            output.WriteLine(ex.Message);
-        }
         catch (Exception ex)
         {
-            output.WriteLine(ex.Message);
+            log.Error(ex, "Insert Error");
         }
     }
 

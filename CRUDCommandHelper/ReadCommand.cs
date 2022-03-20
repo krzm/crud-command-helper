@@ -1,6 +1,7 @@
 ﻿using CLIHelper;
 using DataToTable;
 using EFCoreHelper;
+using Serilog;
 
 namespace CRUDCommandHelper;
 
@@ -10,29 +11,34 @@ public abstract class ReadCommand<TUnitOfWork, TEntity, TArgumentModel>
 {
     protected readonly TUnitOfWork UnitOfWork;
     private readonly IOutput output;
+    protected readonly ILogger Log;
     private readonly IDataToText<TEntity> textProvider;
 
     public ReadCommand(
         TUnitOfWork unitOfWork
         , IOutput output
+        , ILogger log
         , IDataToText<TEntity> textProvider)
     {
-        ArgumentNullException.ThrowIfNull(unitOfWork);
-        ArgumentNullException.ThrowIfNull(output);
-        ArgumentNullException.ThrowIfNull(textProvider);
-
-        this.UnitOfWork = unitOfWork;
+        UnitOfWork = unitOfWork;
         this.output = output;
+        this.Log = log;
         this.textProvider = textProvider;
+
+        ArgumentNullException.ThrowIfNull(UnitOfWork);
+        ArgumentNullException.ThrowIfNull(this.output);
+        ArgumentNullException.ThrowIfNull(this.Log);
+        ArgumentNullException.ThrowIfNull(this.textProvider);
     }
 
     public void Read(TArgumentModel model)
     {
-        var data = Get(model);
-        var text = textProvider.GetText(data);
         output.Clear();
-        output.WriteLine($"{nameof(Read)} {typeof(TEntity).Name}:");
-        output.Write(text);
+        Log.Information(
+            "{0} {1}", nameof(Read), typeof(TEntity).Name);
+        output.Write(
+            textProvider.GetText(
+                Get(model)));
     }
 
     protected abstract List<TEntity> Get(TArgumentModel model);

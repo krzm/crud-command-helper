@@ -7,9 +7,27 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="AutoMapper" Version="11.0.0" />
+	  	<PackageReference Include="AutoMapper" Version="11.0.0" />
+		<PackageReference Include="Serilog" Version="2.10.0" />
 	</ItemGroup>
 
+	<!--Debug refs-->
+	<!-- <ItemGroup>
+		<Reference Include="ModelHelper">
+			<HintPath>..\..\model-helper\ModelHelper\bin\Debug\net6.0\ModelHelper.dll</HintPath>
+		</Reference>
+		<Reference Include="EFCoreHelper">
+			<HintPath>..\..\efcore-helper\EFCoreHelper\bin\Debug\net6.0\EFCoreHelper.dll</HintPath>
+		</Reference>
+		<Reference Include="CLIHelper">
+			<HintPath>..\..\cli-helper\CLIHelper\bin\Debug\net6.0\CLIHelper.dll</HintPath>
+		</Reference>
+		<Reference Include="DataToTable">
+			<HintPath>..\..\datatotable\DataToTable\bin\Debug\net6.0\DataToTable.dll</HintPath>
+		</Reference>
+	</ItemGroup>  -->
+
+	<!--Release refs-->
 	<ItemGroup>
 		<Reference Include="ModelHelper">
 			<HintPath>..\..\..\Build\model-helper\ModelHelper\ModelHelper.dll</HintPath>

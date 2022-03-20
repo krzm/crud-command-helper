@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using CLIHelper;
 using EFCoreHelper;
 using ModelHelper;
+using Serilog;
 
 namespace CRUDCommandHelper;
 
@@ -12,20 +12,20 @@ public abstract class UpdateCommand<TUnitOfWork, TEntity, TArgumentModel, TUpdat
         where TArgumentModel : IId
 {
     protected readonly TUnitOfWork UnitOfWork;
-    private readonly IOutput output;
+    private readonly ILogger log;
     private readonly IMapper mapper;
 
     public UpdateCommand(
         TUnitOfWork unitOfWork
-        , IOutput output
+        , ILogger log
         , IMapper mapper)
     {
         UnitOfWork = unitOfWork;
-        this.output = output;
+        this.log = log;
         this.mapper = mapper;
 
         ArgumentNullException.ThrowIfNull(UnitOfWork);
-        ArgumentNullException.ThrowIfNull(this.output);
+        ArgumentNullException.ThrowIfNull(this.log);
         ArgumentNullException.ThrowIfNull(this.mapper);
     }
 
@@ -35,17 +35,17 @@ public abstract class UpdateCommand<TUnitOfWork, TEntity, TArgumentModel, TUpdat
         {
             var updateModel = mapper.Map<TUpdateModel>(model);
             var modelDb = GetById(model.Id);
-            if (modelDb == null) throw new Exception($"No Id:{model.Id} in database.");
+            ArgumentNullException.ThrowIfNull(modelDb);
             updateModel.Update(modelDb);
             UnitOfWork.Save();
         }
-        catch (ArgumentException ex)
+        catch (ArgumentNullException ex)
         {
-            output.WriteLine(ex.Message);
+            log.Error(ex, "No Id: {0} in database", model.Id);
         }
         catch (Exception ex)
         {
-            output.WriteLine(ex.Message);
+            log.Error(ex, "Error during update on Id: {0}", model.Id);
         }
     }
 
