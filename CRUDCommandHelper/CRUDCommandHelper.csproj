@@ -13,14 +13,14 @@
 
 	<!--Debug refs-->
 	<!-- <ItemGroup>
-		<Reference Include="ModelHelper">
-			<HintPath>..\..\model-helper\ModelHelper\bin\Debug\net6.0\ModelHelper.dll</HintPath>
-		</Reference>
 		<Reference Include="EFCoreHelper">
 			<HintPath>..\..\efcore-helper\EFCoreHelper\bin\Debug\net6.0\EFCoreHelper.dll</HintPath>
 		</Reference>
 		<Reference Include="CLIHelper">
 			<HintPath>..\..\cli-helper\CLIHelper\bin\Debug\net6.0\CLIHelper.dll</HintPath>
+		</Reference>
+		<Reference Include="ModelHelper">
+			<HintPath>..\..\model-helper\ModelHelper\bin\Debug\net6.0\ModelHelper.dll</HintPath>
 		</Reference>
 		<Reference Include="DataToTable">
 			<HintPath>..\..\datatotable\DataToTable\bin\Debug\net6.0\DataToTable.dll</HintPath>
@@ -29,14 +29,14 @@
 
 	<!--Release refs-->
 	<ItemGroup>
-		<Reference Include="ModelHelper">
-			<HintPath>..\..\..\Build\model-helper\ModelHelper\ModelHelper.dll</HintPath>
-		</Reference>
 		<Reference Include="EFCoreHelper">
 			<HintPath>..\..\..\Build\efcore-helper\EFCoreHelper\EFCoreHelper.dll</HintPath>
 		</Reference>
 		<Reference Include="CLIHelper">
 			<HintPath>..\..\..\Build\cli-helper\CLIHelper\CLIHelper.dll</HintPath>
+		</Reference>
+		<Reference Include="ModelHelper">
+			<HintPath>..\..\..\Build\model-helper\ModelHelper\ModelHelper.dll</HintPath>
 		</Reference>
 		<Reference Include="DataToTable">
 			<HintPath>..\..\..\Build\datatotable\DataToTable\DataToTable.dll</HintPath>
