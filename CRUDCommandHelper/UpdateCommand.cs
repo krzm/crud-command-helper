@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using EFCoreHelper;
+using EFCore.Helper;
 using ModelHelper;
 using Serilog;
 

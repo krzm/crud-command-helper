@@ -1,6 +1,6 @@
 ﻿using CLIHelper;
 using DataToTable;
-using EFCoreHelper;
+using EFCore.Helper;
 using Serilog;
 
 namespace CRUDCommandHelper;
