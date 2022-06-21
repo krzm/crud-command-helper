@@ -1,16 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
-
 	<ItemGroup>
-	  	<PackageReference Include="AutoMapper" Version="11.0.0" />
-		<PackageReference Include="Serilog" Version="2.10.0" />
+		<PackageReference Include="AutoMapper" Version="11.0.1"/>
+		<PackageReference Include="Serilog" Version="2.11.0"/>
 	</ItemGroup>
-
 	<!--Debug refs-->
 	<!-- <ItemGroup>
 		<Reference Include="EFCore.Helper">
@@ -26,7 +23,6 @@
 			<HintPath>..\..\datatotable\DataToTable\bin\Debug\net6.0\DataToTable.dll</HintPath>
 		</Reference>
 	</ItemGroup>  -->
-
 	<!--Release refs-->
 	<ItemGroup>
 		<Reference Include="EFCore.Helper">
