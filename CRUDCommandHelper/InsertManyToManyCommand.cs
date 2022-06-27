@@ -20,7 +20,6 @@ public abstract class InsertManyToManyCommand<TUnitOfWork>
         UnitOfWork = unitOfWork;
         this.log = log;
         this.mapper = mapper;
-
         ArgumentNullException.ThrowIfNull(UnitOfWork);
         ArgumentNullException.ThrowIfNull(this.log);
         ArgumentNullException.ThrowIfNull(this.mapper);

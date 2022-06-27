@@ -24,7 +24,6 @@ public abstract class ReadCommand<TUnitOfWork, TEntity, TArgumentModel>
         this.output = output;
         this.Log = log;
         this.textProvider = textProvider;
-
         ArgumentNullException.ThrowIfNull(UnitOfWork);
         ArgumentNullException.ThrowIfNull(this.output);
         ArgumentNullException.ThrowIfNull(this.Log);
