@@ -1,4 +1,3 @@
-using AutoMapper;
 using EFCore.Helper;
 using ModelHelper;
 using Serilog;
@@ -17,8 +16,7 @@ public abstract class DeleteCommand<TUnitOfWork, TEntity, TArgumentModel>
 
     public DeleteCommand(
         TUnitOfWork unitOfWork
-        , ILogger log
-        , IMapper mapper)
+        , ILogger log)
     {
         UnitOfWork = unitOfWork;
         this.log = log;
