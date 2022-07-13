@@ -1,3 +1,4 @@
+using CLIHelper;
 using EFCore.Helper;
 using ModelHelper;
 using Serilog;
@@ -5,23 +6,26 @@ using Serilog;
 namespace CRUDCommandHelper;
 
 public abstract class DeleteCommand<TUnitOfWork, TEntity, TArgumentModel>
-    : IDeleteCommand<TArgumentModel>
+    : Command
+    , IDeleteCommand<TArgumentModel>
         where TUnitOfWork : IUnitOfWork
         where TArgumentModel : IId
 {
-    private const string NotInDbError = "No Id: {0} in database";
-    private const string DeleteError = "Error during delete on Id: {0}";
     protected readonly TUnitOfWork UnitOfWork;
     private readonly ILogger log;
+    private readonly IInput input;
 
     public DeleteCommand(
         TUnitOfWork unitOfWork
-        , ILogger log)
+        , ILogger log
+        , IInput input)
     {
         UnitOfWork = unitOfWork;
         this.log = log;
+        this.input = input;
         ArgumentNullException.ThrowIfNull(UnitOfWork);
         ArgumentNullException.ThrowIfNull(this.log);
+        ArgumentNullException.ThrowIfNull(this.input);
     }
 
     public void Delete(TArgumentModel model)
@@ -42,10 +46,34 @@ public abstract class DeleteCommand<TUnitOfWork, TEntity, TArgumentModel>
 
     private void DeleteTemplate(TArgumentModel model)
     {
+        if(AskAreYouSure(model) == false)
+            return;
         var modelDb = GetById(model.Id);
         ArgumentNullException.ThrowIfNull(modelDb);
         DeleteEntity(modelDb);
         UnitOfWork.Save();
+    }
+
+    private bool AskAreYouSure(TArgumentModel model)
+    {
+        log.Information(DeleteYesNo, model.Id);
+        var line = input.ReadLine();
+        while (IsYesOrNo(line) == false)
+        {
+            log.Information(InputYesNo);
+            line = input.ReadLine();
+        }
+        if (line == Yes)
+            return true;
+        return false;
+    }
+
+    private static bool IsYesOrNo(string? line)
+    {
+        var yes = string.Equals(line, Yes) == true;
+        var no = string.Equals(line, No) == true;
+        var yesOrNo = yes || no;
+        return yesOrNo;
     }
 
     protected abstract TEntity GetById(int id);
