@@ -10,7 +10,7 @@ public abstract class ReadCommand<TUnitOfWork, TEntity, TArgumentModel>
         where TUnitOfWork : IUnitOfWork
 {
     protected readonly TUnitOfWork UnitOfWork;
-    private readonly IOutput output;
+    protected readonly IOutput Output;
     protected readonly ILogger Log;
     private readonly IDataToText<TEntity> textProvider;
 
@@ -21,21 +21,21 @@ public abstract class ReadCommand<TUnitOfWork, TEntity, TArgumentModel>
         , IDataToText<TEntity> textProvider)
     {
         UnitOfWork = unitOfWork;
-        this.output = output;
+        this.Output = output;
         this.Log = log;
         this.textProvider = textProvider;
         ArgumentNullException.ThrowIfNull(UnitOfWork);
-        ArgumentNullException.ThrowIfNull(this.output);
+        ArgumentNullException.ThrowIfNull(this.Output);
         ArgumentNullException.ThrowIfNull(this.Log);
         ArgumentNullException.ThrowIfNull(this.textProvider);
     }
 
     public void Read(TArgumentModel model)
     {
-        output.Clear();
+        Output.Clear();
         Log.Information(
             "{0} {1}", nameof(Read), typeof(TEntity).Name);
-        output.Write(
+        Output.Write(
             textProvider.GetText(
                 Get(model)));
     }
